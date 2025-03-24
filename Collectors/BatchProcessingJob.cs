@@ -1,7 +1,6 @@
 ﻿using Collectors.Interfaces;
 using Core.Interfaces;
 using Quartz;
-using IJob = Quartz.IJob;
 
 namespace Collectors;
 
@@ -15,8 +14,8 @@ public class BatchProcessingJob(
 {
     public async Task Execute(IJobExecutionContext context)
     {
-        Console.WriteLine("BatchProcessingJob executing: " + DateTime.UtcNow);
+        logger.LogInfo("Batch Processing Job", "BatchProcessingJob executing: " + DateTime.UtcNow);
         await batchProcessor.RunBatchProcessAsync(dataProcessor, fileStorage, logger);
-        Console.WriteLine("BatchProcessingJob completed: " + DateTime.UtcNow);
+        logger.LogInfo("Batch Processing Job", "BatchProcessingJob completed: " + DateTime.UtcNow);
     }
 }

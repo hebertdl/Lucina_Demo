@@ -45,16 +45,12 @@ public class FdaDrugEventExtractor(ILogger logger) : IFdaDrugEventExtractor
         var patients = new List<Patient>();
 
         if (results == null) return patients;
-        foreach (var result in results)
-        {
-            var patient = ExtractPatient(json, result, patients);
-            if (patient != null) patients.Add(patient);
-        }
+        patients.AddRange(results.Select(result => ExtractPatient(json, result)).OfType<Patient>());
 
         return patients;
     }
 
-    private Patient? ExtractPatient(JObject json, JToken result, List<Patient> patients)
+    private Patient? ExtractPatient(JObject json, JToken result)
     {
         var patientJson = result["patient"]?.ToString();
         if (string.IsNullOrEmpty(patientJson)) return null;
@@ -62,7 +58,7 @@ public class FdaDrugEventExtractor(ILogger logger) : IFdaDrugEventExtractor
         {
             return JsonConvert.DeserializeObject<Patient>(patientJson);
         }
-        catch (JsonException ex)
+        catch
         {
             logger.LogValidationError("Extract Patients", "Failed to deserialize patient.", json.ToString());
             return null;

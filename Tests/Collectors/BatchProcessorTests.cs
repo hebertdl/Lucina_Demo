@@ -1,14 +1,14 @@
 ﻿using System.Net;
+using Collectors;
 using Core.Interfaces;
 using Moq;
 using Moq.Protected;
 
-namespace Collectors.Tests;
+namespace Lucina_Demo_Tests.Collectors;
 
 public class BatchProcessorTests
 {
     private readonly BatchPusher _batchPusher;
-    private readonly HttpClient _httpClient;
     private readonly Mock<IDataProcessor> _mockDataProcessor;
     private readonly Mock<IFileStorage> _mockFileStorage;
     private readonly Mock<HttpMessageHandler> _mockHttpMessageHandler;
@@ -20,8 +20,8 @@ public class BatchProcessorTests
         _mockFileStorage = new Mock<IFileStorage>();
         _mockLogger = new Mock<ILogger>();
         _mockHttpMessageHandler = new Mock<HttpMessageHandler>();
-        _httpClient = new HttpClient(_mockHttpMessageHandler.Object);
-        _batchPusher = new BatchPusher(_httpClient, new Mock<IAuthHeaderBuilder>().Object, _mockLogger.Object);
+        var httpClient = new HttpClient(_mockHttpMessageHandler.Object);
+        _batchPusher = new BatchPusher(httpClient, new Mock<IAuthHeaderBuilder>().Object);
     }
 
     [Fact]

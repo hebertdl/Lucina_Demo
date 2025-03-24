@@ -61,7 +61,7 @@ public class FdaEventDataProcessor(
         var allResults = new List<JToken>();
         var skip = 0;
         const int limit = 100;
-        var total = 0;
+        int total;
 
         var httpClient = _httpClientFactory.CreateClient();
         httpClient.Timeout = TimeSpan.FromSeconds(30);

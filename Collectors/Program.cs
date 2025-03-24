@@ -18,7 +18,6 @@ internal static class Program
 
     private static async Task Main()
     {
-        // Configure dependency injection
         var services = new ServiceCollection();
         var serviceProvider = SetupServiceProvider(services);
 
@@ -61,7 +60,7 @@ internal static class Program
             .Build();
         LogInfo("Trigger defined: " + DateTime.UtcNow);
         LogInfo(
-            $"Next scheduled run: {(trigger.GetNextFireTimeUtc().HasValue ? trigger.GetNextFireTimeUtc().Value.ToLocalTime() : "None")}");
+            $"Next scheduled run: {(trigger.GetNextFireTimeUtc().HasValue ? trigger.GetNextFireTimeUtc()!.Value.ToLocalTime() : "None")}");
         return trigger;
     }
 
@@ -79,7 +78,6 @@ internal static class Program
         var schedulerFactory = new StdSchedulerFactory();
         var scheduler = await schedulerFactory.GetScheduler();
         LogInfo("Scheduler initialized: " + DateTime.UtcNow);
-
         scheduler.JobFactory = new MicrosoftDependencyInjectionJobFactory(serviceProvider, _logger);
         LogInfo("Job factory set: " + DateTime.UtcNow);
         return scheduler;
@@ -110,8 +108,8 @@ internal static class Program
         services.AddTransient<IFileStorage, LocalFileStorage>();
         services.AddTransient<ILogger, ConsoleLogger>();
         services.AddTransient<BatchProcessingJob>();
+        services.AddTransient<BatchPusher>();
 
-        // Register JwtAuthHeaderBuilder with parameters
         services.AddTransient<IAuthHeaderBuilder>(provider =>
             new JwtAuthHeaderBuilder(
                 provider.GetRequiredService<HttpClient>(),
@@ -121,8 +119,5 @@ internal static class Program
                 tokenEndpoint
             )
         );
-
-
-        services.AddTransient<BatchPusher>();
     }
 }

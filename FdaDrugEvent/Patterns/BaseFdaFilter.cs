@@ -1,11 +1,11 @@
 ﻿using Core.Models;
 using FdaDrugEvent.Interfaces;
 
-namespace FdaDrugEvent.Filters;
+namespace FdaDrugEvent.Patterns;
 
 public abstract class BaseFdaFilter : IFdaDrugEventFilters
 {
-    private IFdaDrugEventFilters _nextFilter;
+    private IFdaDrugEventFilters? _nextFilter;
 
     public IFdaDrugEventFilters SetNext(IFdaDrugEventFilters nextFilter)
     {

@@ -27,12 +27,11 @@ public class JwtAuthHeaderBuilder(
 
     private async Task<string> GetJwtTokenAsync()
     {
-        var request = new FormUrlEncodedContent(new[]
-        {
+        var request = new FormUrlEncodedContent([
             new KeyValuePair<string, string>("grant_type", "client_credentials"),
             new KeyValuePair<string, string>("client_id", _clientId),
             new KeyValuePair<string, string>("client_secret", _clientSecret)
-        });
+        ]);
 
         try
         {

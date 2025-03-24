@@ -4,7 +4,7 @@ using Core.Interfaces;
 
 namespace Collectors;
 
-public class BatchPusher(HttpClient httpClient, IAuthHeaderBuilder authHeaderBuilder, ILogger logger)
+public class BatchPusher(HttpClient httpClient, IAuthHeaderBuilder authHeaderBuilder)
 {
     private const string LogIdentifier = "BatchPusher";
 

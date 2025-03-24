@@ -4,18 +4,10 @@ namespace FdaDrugEvent.Patterns;
 
 public class FdaEventsBuilder
 {
-    private List<Patient> _patients;
-    private DateTime _processDate;
-    private DateTime _reportDate;
+    private List<Patient> _patients = [];
+    private DateTime _processDate = DateTime.MinValue;
+    private DateTime _reportDate = DateTime.MinValue;
     private int _totalRecords;
-
-    public FdaEventsBuilder()
-    {
-        _processDate = DateTime.MinValue;
-        _reportDate = DateTime.MinValue;
-        _totalRecords = 0;
-        _patients = null;
-    }
 
     public FdaEventsBuilder WithProcessDate(DateTime processDate)
     {

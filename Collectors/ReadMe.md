@@ -2,7 +2,8 @@
 
 ## Overview
 
-The Collectors project processes FDA drug event data nightly, filters it (women-only, first 10 records), stores results, and posts to a mock endpoint, built for a .NET interview assignment.
+The Collectors project processes FDA drug event data nightly, filters it (women-only, first 10 records), stores results,
+and posts to a mock endpoint, built for a .NET interview assignment.
 
 ## Components
 
@@ -15,12 +16,11 @@ The Collectors project processes FDA drug event data nightly, filters it (women-
 - **LocalFileStorage**: Stores raw, processed, and final data.
 - **ConsoleLogger**: Logs execution details.
 
-
 ## Setup
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-repo/collectors.git
+    git clone https://github.com/hebertdl/Lucina_Demo.git
     cd collectors
     ```
 
@@ -42,6 +42,7 @@ The Collectors project processes FDA drug event data nightly, filters it (women-
 ## Usage
 
 To run the batch processing, use the following command:
+
 ```sh
 dotnet run --project Collectors
 ```
@@ -63,6 +64,7 @@ graph TD
 ```
 
 ## Batch Processor Coupling Diagram
+
 ```mermaid
 
 graph LR
@@ -76,7 +78,8 @@ graph LR
     F -->|uses| E[ILogger]
 ```
 
-## Lucina Demo Process Flow 
+## Lucina Demo Process Flow
+
 ```mermaid
 graph TD
    A[Quartz Trigger<br>1 AM UTC] --> B[BatchProcessingJob.Execute]
@@ -98,6 +101,7 @@ graph TD
 ```
 
 ## Lucina Demo Coupling Diagram
+
 ```mermaid
 graph LR
     A[Program.cs] -->|Schedules| B[Quartz IScheduler]

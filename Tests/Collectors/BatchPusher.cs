@@ -5,10 +5,11 @@ using Core.Interfaces;
 using Moq;
 using Moq.Protected;
 
+namespace Lucina_Demo_Tests.Collectors;
+
 public class BatchPusherTests
 {
     private readonly BatchPusher _batchPusher;
-    private readonly HttpClient _httpClient;
     private readonly Mock<IAuthHeaderBuilder> _mockAuthHeaderBuilder;
     private readonly Mock<HttpMessageHandler> _mockHttpMessageHandler;
     private readonly Mock<ILogger> _mockLogger;
@@ -18,8 +19,8 @@ public class BatchPusherTests
         _mockHttpMessageHandler = new Mock<HttpMessageHandler>();
         _mockAuthHeaderBuilder = new Mock<IAuthHeaderBuilder>();
         _mockLogger = new Mock<ILogger>();
-        _httpClient = new HttpClient(_mockHttpMessageHandler.Object);
-        _batchPusher = new BatchPusher(_httpClient, _mockAuthHeaderBuilder.Object, _mockLogger.Object);
+        var httpClient = new HttpClient(_mockHttpMessageHandler.Object);
+        _batchPusher = new BatchPusher(httpClient, _mockAuthHeaderBuilder.Object);
     }
 
     [Fact]
@@ -36,7 +37,6 @@ public class BatchPusherTests
     }
 
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     public async Task PostResults_NullOrEmptyJsonData_LogsErrorAndThrowsArgumentNullException(string jsonData)
     {

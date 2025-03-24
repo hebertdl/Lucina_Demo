@@ -129,7 +129,7 @@ public class ConsoleLoggerTests : IDisposable
 
         // Assert
         var output = _stringWriter.ToString().Trim();
-        Console.WriteLine($"Full output: '{output}'"); // Debug output
+
         Assert.StartsWith("Error: ", output);
         Assert.Contains($": {logIdentifier}: {message} Error:", output);
         Assert.DoesNotContain("Error: null", output);
