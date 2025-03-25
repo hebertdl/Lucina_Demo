@@ -27,8 +27,8 @@ public class BatchPusherTests
     public async Task PostResults_NullLogger_ThrowsArgumentNullException()
     {
         // Arrange
-        var postUrl = "https://reqres.in/api/users";
-        var jsonData = "{\"name\": \"John Doe\", \"job\": \"Developer\"}";
+        const string postUrl = "https://reqres.in/api/users";
+        const string jsonData = "{\"name\": \"John Doe\", \"job\": \"Developer\"}";
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
